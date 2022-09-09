@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { addProduct, deleteProduct, getProduct, getProducts } from "../services/product.service,"
+import { addProduct, deleteProduct, getProduct, getProducts } from "../services/product.service"
 import { HttpStatusCodes } from "../types/Http"
 import { addProductValidationSchema } from "../validations/product.validation"
 
