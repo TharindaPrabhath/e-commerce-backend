@@ -9,6 +9,10 @@ interface AddProductProps {
   images: string[]
 }
 
+interface EditProductProps extends AddProductProps {
+  _id: string
+}
+
 export const addProduct = async (props: AddProductProps) => {
   const product = new Product({
     sku: props.sku,
@@ -32,6 +36,15 @@ export const getProducts = async () => {
   return result
 }
 
+export const editProduct = async (props: EditProductProps) => {
+  await Product.findByIdAndUpdate({ _id: props._id }, props)
+}
+
 export const deleteProduct = async (productId: string) => {
   await Product.findByIdAndDelete(productId)
+}
+
+export const searchProducts = async (query: string) => {
+  const result = await Product.find({ name: { $regex: ".*" + query + ".*", $options: "i" } })
+  return result
 }

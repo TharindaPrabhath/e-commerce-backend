@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
     cb(null, "images")
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname.trim().replace(" ", "-") || "")
+    cb(null, Date.now() + "-" + file.originalname.trim().replace(/\s+/g, "-") || "")
   },
 })
 
@@ -40,6 +40,7 @@ app.use(cors())
 app.use(multer({ storage: storage }).array("image"))
 app.use(express.json({ limit: "500kb" }))
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static("images"))
 
 // status route
 app.use(`/${API_VERSION}/status`, async (req: Request, res: Response) => {
